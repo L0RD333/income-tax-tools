@@ -11,9 +11,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Byte-compile all Python
+      - run: pip install -r requirements.txt
+      - name: Byte-compile
         run: python -m compileall Home.py shared.py pages
-      - name: Import shared module (engine sanity)
-        run: python -c "import shared; assert shared.regime_new(1275000, True, 'below60', 0)['total'] == 0; print('engine OK')"
+      - name: Engine + combined + PDF sanity
+        run: |
+          python - <<'PY'
+          import shared as s
+          assert s.regime_new(1275000, True, "below60", 0)["total"] == 0
+          cg = dict(stcg_eq=500000, ltcg_eq_taxable=0, ltcg_oth=0, idx_gain=0)
+          assert s.combined(0, False, "below60", "new", 0, cg)["total"] == 20800
+          pdf = s.build_pdf("Test", "subtitle", [("a","1"),("**Total","2")], "note")
+          assert pdf[:4] == b"%PDF" and len(pdf) > 1000
+          print("CI sanity OK")
+          PY

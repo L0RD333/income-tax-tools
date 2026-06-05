@@ -7,11 +7,20 @@ individuals. Built by Rahul.
 |---|---|
 | **Income Tax Calculator** | Old vs New regime comparison — slabs, 87A rebate, surcharge (with marginal relief), 4% cess, best-regime + net payable. |
 | **HRA Exemption** | Section 10(13A) / Rule 2A — least of actual HRA, 40%/50% of salary, rent − 10% of salary. Old regime only. |
-| **Capital Gains** | Post-23-Jul-2024 rates — equity STCG 111A @20%, equity LTCG 112A @12.5% (₹1.25L exempt), other LTCG @12.5%, basic set-off and 54-series exemption. |
+| **Capital Gains** | Post-23-Jul-2024 rates — equity STCG 111A @20%, equity LTCG 112A @12.5% (₹1.25L exempt), other LTCG @12.5%, basic set-off and 54-series exemption. Feeds into the Income Tax page. |
 
 > Estimates for common cases — verify with the official portal / ITR utility before
 > filing. The new regime is the default u/s 115BAC; the 87A rebate applies to regular
 > income, not special-rate income such as capital gains.
+
+
+## Wiring & PDF export
+- Compute once on the **Capital Gains** tab — the gains are stored in session and can be
+  pulled into the **Income Tax** tab via *“Add capital gains on top”*. There they are taxed
+  above slab income with the **resident basic-exemption adjustment** (unused basic-exemption
+  limit set off against the highest-rate gains first) and capital-gains surcharge capped at 15%.
+- Every page has a **⬇ Download computation (PDF)** button. PDFs use the bundled DejaVuSans
+  font (in `assets/`) so the ₹ symbol renders correctly.
 
 ## Project layout
 ```
@@ -21,6 +30,7 @@ pages/
   1_Income_Tax_Calculator.py
   2_HRA_Exemption.py
   3_Capital_Gains.py
+assets/                       # bundled DejaVuSans fonts (for ₹ in PDFs)
 requirements.txt
 .github/workflows/ci.yml      # byte-compile + engine sanity check on push/PR
 ```

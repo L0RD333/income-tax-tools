@@ -1,5 +1,5 @@
 import streamlit as st
-from shared import style, brandbar, inr
+from shared import style, brandbar, inr, build_pdf
 
 style("HRA Exemption Calculator", "🏠")
 st.title("HRA Exemption Calculator")
@@ -51,5 +51,19 @@ with st.expander("Rule 2A working (least of the three is exempt)"):
 
 if ann_rent > 100000 and regime == "Old Regime":
     st.info("Annual rent exceeds ₹1,00,000 — landlord PAN reporting is generally required by the employer.")
+items = [("##HRA exemption (Rule 2A)",""),
+         ("Regime", regime),
+         ("City", "Metro" if metro else "Non-metro"),
+         ("Annual salary (Basic+DA+comm)", inr(ann_salary)),
+         ("1. Actual HRA received", inr(least1)),
+         ("2. %s of salary" % ("50%" if metro else "40%"), inr(least2)),
+         ("3. Rent - 10% of salary", inr(least3)),
+         ("**HRA exempt", inr(exempt)),
+         ("Taxable HRA", inr(taxable_hra))]
+st.download_button("⬇ Download computation (PDF)",
+    data=build_pdf("HRA Exemption Computation", "FY 2025-26 (AY 2026-27) · Section 10(13A) / Rule 2A",
+        items, "Exempt = least of the three (Old Regime only). Verify before filing."),
+    file_name="hra-exemption-computation.pdf", mime="application/pdf")
+
 st.caption("HRA exemption applies only where the employee receives HRA, lives in rented "
            "accommodation and actually pays rent. Old regime only.")
