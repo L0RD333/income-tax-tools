@@ -37,6 +37,7 @@ A multi-page Streamlit site of Indian income-tax tools for resident individuals 
 | **ITR Form Selector** | Rule-based recommendation across **ITR-1 … ITR-7** from taxpayer type, residence, income heads and restrictions. |
 | **Section Mapper** | Income-tax Act **1961 ↔ 2025** section lookup for commonly-cited provisions (partial reference). |
 | **ITR-1 Computation Utility** | Reads an uploaded **ITR-1 JSON** into a computation/working paper + PDF (salary + interest; does not generate portal JSON). |
+| **ITR-4 Computation Utility** | Reads a presumptive **ITR-4 JSON** (44AD/44ADA) into a computation + P&L working paper + PDF. |
 | **Full Computation Report** | Merges the latest Income Tax + HRA + Capital Gains + Advance Tax results into a **single PDF**. |
 
 ## Loss carry-forward
@@ -60,12 +61,21 @@ pages/
   5_ITR_Form_Selector.py
   6_Section_Mapper.py
   7_ITR1_Computation_Utility.py
-  8_Full_Computation_Report.py
+  8_ITR4_Computation_Utility.py
+  9_Full_Computation_Report.py
+tests/test_engine.py          # pytest unit tests (run in CI)
 screenshot.py                 # optional: capture a live-UI screenshot (Playwright)
 assets/                       # bundled DejaVuSans fonts (for ₹ in PDFs)
 requirements.txt
 .github/workflows/ci.yml      # byte-compile + engine sanity check on push/PR
 ```
+
+## Testing
+```bash
+pip install pytest
+pytest tests/ -q
+```
+CI runs these on every push/PR (byte-compile + unit tests).
 
 ## Run locally
 ```bash
