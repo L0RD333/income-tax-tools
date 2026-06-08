@@ -1,7 +1,18 @@
 # Income Tax Tools — FY 2025-26 (AY 2026-27)
 
-A multi-page Streamlit site with three Indian income-tax calculators for resident
-individuals. Built by Rahul.
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP.streamlit.app)
+![CI](https://github.com/YOUR-USERNAME/income-tax-tools/actions/workflows/ci.yml/badge.svg)
+
+> Replace `YOUR-APP` / `YOUR-USERNAME` above once the repo is pushed and the app is deployed.
+
+### Sample output
+A merged computation exported from the **Full Computation Report** page:
+
+![Sample report](assets/sample-report.png)
+
+_Live-UI screenshot:_ run the app, then `python screenshot.py` (needs `pip install playwright && playwright install chromium`). It saves `docs/screenshot.png` — reference it here with `![App](docs/screenshot.png)`.
+
+A multi-page Streamlit site of Indian income-tax tools for resident individuals — six calculators plus a section-mapper reference. Built by Rahul.
 
 | Page | What it does |
 |---|---|
@@ -24,6 +35,7 @@ individuals. Built by Rahul.
 
 | **Advance Tax** | Instalment schedule (15/45/75/100%) with a simplified **234C / 234B** interest estimate; can prefill the tax figure from the Income Tax tab. |
 | **ITR Form Selector** | Rule-based recommendation across **ITR-1 … ITR-7** from taxpayer type, residence, income heads and restrictions. |
+| **Section Mapper** | Income-tax Act **1961 ↔ 2025** section lookup for commonly-cited provisions (partial reference). |
 | **Full Computation Report** | Merges the latest Income Tax + HRA + Capital Gains + Advance Tax results into a **single PDF**. |
 
 ## Loss carry-forward
@@ -45,7 +57,9 @@ pages/
   3_Capital_Gains.py
   4_Advance_Tax.py
   5_ITR_Form_Selector.py
-  6_Full_Computation_Report.py
+  6_Section_Mapper.py
+  7_Full_Computation_Report.py
+screenshot.py                 # optional: capture a live-UI screenshot (Playwright)
 assets/                       # bundled DejaVuSans fonts (for ₹ in PDFs)
 requirements.txt
 .github/workflows/ci.yml      # byte-compile + engine sanity check on push/PR
