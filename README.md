@@ -12,7 +12,7 @@ A merged computation exported from the **Full Computation Report** page:
 
 _Live-UI screenshot:_ run the app, then `python screenshot.py` (needs `pip install playwright && playwright install chromium`). It saves `docs/screenshot.png` — reference it here with `![App](docs/screenshot.png)`.
 
-A multi-page Streamlit site of Indian income-tax tools for resident individuals — six calculators plus a section-mapper reference. Built by Rahul.
+A multi-page Streamlit site of Indian income-tax tools for resident individuals — calculators plus section-mapper and ITR-1 JSON utilities. Built by Rahul.
 
 | Page | What it does |
 |---|---|
@@ -36,6 +36,7 @@ A multi-page Streamlit site of Indian income-tax tools for resident individuals 
 | **Advance Tax** | Instalment schedule (15/45/75/100%) with a simplified **234C / 234B** interest estimate; can prefill the tax figure from the Income Tax tab. |
 | **ITR Form Selector** | Rule-based recommendation across **ITR-1 … ITR-7** from taxpayer type, residence, income heads and restrictions. |
 | **Section Mapper** | Income-tax Act **1961 ↔ 2025** section lookup for commonly-cited provisions (partial reference). |
+| **ITR-1 Computation Utility** | Reads an uploaded **ITR-1 JSON** into a computation/working paper + PDF (salary + interest; does not generate portal JSON). |
 | **Full Computation Report** | Merges the latest Income Tax + HRA + Capital Gains + Advance Tax results into a **single PDF**. |
 
 ## Loss carry-forward
@@ -58,7 +59,8 @@ pages/
   4_Advance_Tax.py
   5_ITR_Form_Selector.py
   6_Section_Mapper.py
-  7_Full_Computation_Report.py
+  7_ITR1_Computation_Utility.py
+  8_Full_Computation_Report.py
 screenshot.py                 # optional: capture a live-UI screenshot (Playwright)
 assets/                       # bundled DejaVuSans fonts (for ₹ in PDFs)
 requirements.txt

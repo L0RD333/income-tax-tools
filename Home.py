@@ -14,6 +14,7 @@ A suite of Indian income-tax calculators. Pick a tool from the sidebar:
 - **Advance Tax** — instalment schedule and 234C / 234B interest estimate.
 - **ITR Form Selector** — which of ITR-1 … ITR-7 to file.
 - **Section Mapper** — Income-tax Act 1961 ↔ 2025 section lookup (partial reference).
+- **ITR-1 Computation Utility** — reads an ITR-1 JSON into a computation sheet + PDF.
 - **Full Computation Report** — merges Income Tax, HRA, Capital Gains and Advance Tax into one PDF.
 
 > Estimates for common resident-individual cases. Verify with the official portal / ITR utility

@@ -15,12 +15,16 @@ MAP = [
          alias=["80C"]),
     dict(old="80D", new="126", subject="Medical insurance premium",
          note="₹25,000 / ₹50,000 limits unchanged.", alias=["80D"]),
-    dict(old="87A", new="157", subject="Rebate",
-         note="New regime up to ₹60,000 (income ≤ ₹12L); old regime ₹12,500 (≤ ₹5L).", alias=["87A"]),
     dict(old="115BAC", new="202", subject="Default (new) tax regime",
          note="Now the default regime; ₹75,000 standard deduction codified in the Act.", alias=["115BAC"]),
     dict(old="44AB", new="63", subject="Tax audit",
          note="Audit thresholds substantively preserved.", alias=["44AB"]),
+    dict(old="234A", new="423", subject="Interest — late filing of return",
+         note="1% per month; mechanics unchanged.", alias=["234A"]),
+    dict(old="234B", new="424", subject="Interest — default in advance tax",
+         note="1% per month from 1 Apr of the tax year.", alias=["234B"]),
+    dict(old="234C", new="425", subject="Interest — deferment of advance tax instalments",
+         note="1% per month per shortfall instalment.", alias=["234C"]),
     dict(old="139", new="263", subject="Return of income",
          note="ITR-U (updated return) window extended to 48 months.", alias=["139"]),
     dict(old="147", new="279", subject="Income escaping assessment",
@@ -53,7 +57,7 @@ def norm(s):
 direction = st.radio("Direction", ["Old (1961) → New (2025)", "New (2025) → Old (1961)"], horizontal=True)
 old_to_new = direction.startswith("Old")
 
-st.caption("Popular: 80C · 80D · 87A · 115BAC · 139 · 147 · 148 · 192 · 194J · 195 · 44AB · 10")
+st.caption("Popular: 80C · 80D · 115BAC · 139 · 147 · 148 · 192 · 194J · 195 · 234A · 234B · 234C · 44AB · 10")
 q = st.text_input("Enter a section number", placeholder="e.g. 80C, 139, 194J, 10(13A), 195")
 
 def find(query):
