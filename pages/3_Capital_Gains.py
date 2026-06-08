@@ -26,7 +26,29 @@ with c2:
 with st.expander("Brought-forward losses from earlier years (carry-forward tracking)"):
     st.caption("STCL may set off against STCG and LTCG; LTCL only against LTCG. Unabsorbed losses "
                "carry forward up to **8 assessment years** from the year they arose, then lapse.")
-    default = pd.DataFrame([{"Assessment Year": "", "Loss type": "STCL", "Amount (₹)": 0}])
+    up = st.file_uploader("Prefill from last year's carry-forward CSV (optional)", type=["csv"], key="cf_csv")
+    if up is not None:
+        try:
+            import re
+            raw = pd.read_csv(up)
+            def _amt(v): return float(re.sub(r"[^0-9.]", "", str(v)) or 0)
+            def _pick(r, names):
+                for n in names:
+                    if n in r and str(r[n]).strip() != "": return r[n]
+                return None
+            recs = []
+            for r in raw.to_dict("records"):
+                ay = _pick(r, ["Assessment Year", "Loss origin (AY)"])
+                tp = _pick(r, ["Loss type", "Type"]) or "STCL"
+                am = _amt(_pick(r, ["Amount (₹)", "Amount"]))
+                if ay and am > 0:
+                    recs.append({"Assessment Year": str(ay), "Loss type": str(tp), "Amount (₹)": am})
+            st.session_state["bf_default"] = recs or None
+            st.success(f"Loaded {len(recs)} brought-forward loss row(s).")
+        except Exception as e:
+            st.error(f"Could not read CSV: {e}")
+    base = st.session_state.get("bf_default")
+    default = pd.DataFrame(base) if base else pd.DataFrame([{"Assessment Year": "", "Loss type": "STCL", "Amount (₹)": 0}])
     edited = st.data_editor(default, num_rows="dynamic", use_container_width=True,
         column_config={"Loss type": st.column_config.SelectboxColumn(options=["STCL", "LTCL"]),
                        "Amount (₹)": st.column_config.NumberColumn(min_value=0, step=10000),

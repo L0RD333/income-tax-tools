@@ -9,12 +9,13 @@ st.markdown("Visit each calculator once; this page merges their latest results i
 
 sources = [("Income Tax", st.session_state.get("report_it")),
            ("HRA Exemption", st.session_state.get("report_hra")),
-           ("Capital Gains", st.session_state.get("report_cg"))]
+           ("Capital Gains", st.session_state.get("report_cg")),
+           ("Advance Tax", st.session_state.get("report_advtax"))]
 available = [(name, rows) for name, rows in sources if rows]
 missing = [name for name, rows in sources if not rows]
 
 c1, c2 = st.columns(2)
-c1.metric("Sections ready", f"{len(available)} / 3")
+c1.metric("Sections ready", f"{len(available)} / 4")
 if missing:
     c2.caption("Not yet computed: " + ", ".join(missing) +
                ". Open those tabs and compute to include them.")

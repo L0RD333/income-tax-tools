@@ -22,14 +22,18 @@ individuals. Built by Rahul.
 - Every page has a **⬇ Download computation (PDF)** button. PDFs use the bundled DejaVuSans
   font (in `assets/`) so the ₹ symbol renders correctly.
 
-| **Full Computation Report** | Merges the latest Income Tax + HRA + Capital Gains results into a **single PDF**. |
+| **Advance Tax** | Instalment schedule (15/45/75/100%) with a simplified **234C / 234B** interest estimate; can prefill the tax figure from the Income Tax tab. |
+| **ITR Form Selector** | Rule-based recommendation across **ITR-1 … ITR-7** from taxpayer type, residence, income heads and restrictions. |
+| **Full Computation Report** | Merges the latest Income Tax + HRA + Capital Gains + Advance Tax results into a **single PDF**. |
 
 ## Loss carry-forward
 The Capital Gains page takes current-year gains/losses and a brought-forward loss schedule
 (editable table). Set-off order: 54-series exemption → current-year losses → brought-forward
 (oldest first). STCL sets off against STCG and LTCG; LTCL only against LTCG. Unabsorbed losses
 carry forward up to 8 assessment years and then lapse; the resulting schedule is shown and
-downloadable as CSV.
+downloadable as CSV. **Persistence across years:** download the schedule at year-end and
+re-upload that CSV next year via the *“Prefill from last year's carry-forward CSV”* control to
+auto-populate the brought-forward table.
 
 ## Project layout
 ```
@@ -39,7 +43,9 @@ pages/
   1_Income_Tax_Calculator.py
   2_HRA_Exemption.py
   3_Capital_Gains.py
-  4_Full_Computation_Report.py
+  4_Advance_Tax.py
+  5_ITR_Form_Selector.py
+  6_Full_Computation_Report.py
 assets/                       # bundled DejaVuSans fonts (for ₹ in PDFs)
 requirements.txt
 .github/workflows/ci.yml      # byte-compile + engine sanity check on push/PR

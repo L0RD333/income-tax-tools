@@ -39,6 +39,8 @@ else:
 
 best = "New" if new_total <= old_total else "Old"
 saving = abs(new_total - old_total)
+st.session_state["it_total"] = new_total if best=="New" else old_total
+st.session_state["it_regime"] = best
 
 st.subheader("Result")
 r1, r2 = st.columns(2)
