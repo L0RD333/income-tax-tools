@@ -106,6 +106,7 @@ else:
     note = ("Estimate for resident individuals. 87A rebate applies to regular income only. "
             "Surcharge marginal relief is approximate at very high incomes.")
 
+st.session_state["report_it"] = rows
 st.download_button("⬇ Download computation (PDF)",
     data=build_pdf("Income Tax Computation",
         f"FY 2025-26 (AY 2026-27) · {best} regime" + (" · incl. capital gains" if (include_cg and cg) else ""),

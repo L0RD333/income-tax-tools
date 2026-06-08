@@ -60,6 +60,7 @@ items = [("##HRA exemption (Rule 2A)",""),
          ("3. Rent - 10% of salary", inr(least3)),
          ("**HRA exempt", inr(exempt)),
          ("Taxable HRA", inr(taxable_hra))]
+st.session_state["report_hra"] = items
 st.download_button("⬇ Download computation (PDF)",
     data=build_pdf("HRA Exemption Computation", "FY 2025-26 (AY 2026-27) · Section 10(13A) / Rule 2A",
         items, "Exempt = least of the three (Old Regime only). Verify before filing."),

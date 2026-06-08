@@ -7,7 +7,7 @@ individuals. Built by Rahul.
 |---|---|
 | **Income Tax Calculator** | Old vs New regime comparison — slabs, 87A rebate, surcharge (with marginal relief), 4% cess, best-regime + net payable. |
 | **HRA Exemption** | Section 10(13A) / Rule 2A — least of actual HRA, 40%/50% of salary, rent − 10% of salary. Old regime only. |
-| **Capital Gains** | Post-23-Jul-2024 rates — equity STCG 111A @20%, equity LTCG 112A @12.5% (₹1.25L exempt), other LTCG @12.5%, basic set-off and 54-series exemption. Feeds into the Income Tax page. |
+| **Capital Gains** | Post-23-Jul-2024 rates; set-off + **loss carry-forward tracking** (STCL/LTCL rules, 8-year expiry, downloadable schedule). Feeds into the Income Tax page. |
 
 > Estimates for common cases — verify with the official portal / ITR utility before
 > filing. The new regime is the default u/s 115BAC; the 87A rebate applies to regular
@@ -22,6 +22,15 @@ individuals. Built by Rahul.
 - Every page has a **⬇ Download computation (PDF)** button. PDFs use the bundled DejaVuSans
   font (in `assets/`) so the ₹ symbol renders correctly.
 
+| **Full Computation Report** | Merges the latest Income Tax + HRA + Capital Gains results into a **single PDF**. |
+
+## Loss carry-forward
+The Capital Gains page takes current-year gains/losses and a brought-forward loss schedule
+(editable table). Set-off order: 54-series exemption → current-year losses → brought-forward
+(oldest first). STCL sets off against STCG and LTCG; LTCL only against LTCG. Unabsorbed losses
+carry forward up to 8 assessment years and then lapse; the resulting schedule is shown and
+downloadable as CSV.
+
 ## Project layout
 ```
 Home.py                       # landing page (Streamlit entrypoint)
@@ -30,6 +39,7 @@ pages/
   1_Income_Tax_Calculator.py
   2_HRA_Exemption.py
   3_Capital_Gains.py
+  4_Full_Computation_Report.py
 assets/                       # bundled DejaVuSans fonts (for ₹ in PDFs)
 requirements.txt
 .github/workflows/ci.yml      # byte-compile + engine sanity check on push/PR
