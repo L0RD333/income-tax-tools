@@ -1,9 +1,9 @@
 # Income Tax Tools — FY 2025-26 (AY 2026-27)
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP.streamlit.app)
-![CI](https://github.com/YOUR-USERNAME/income-tax-tools/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/L0RD333/income-tax-tools/actions/workflows/ci.yml/badge.svg)
 
-> Replace `YOUR-APP` / `YOUR-USERNAME` above once the repo is pushed and the app is deployed.
+> Replace `YOUR-APP` in the Streamlit badge above with your app subdomain once it's deployed.
 
 ### Sample output
 A merged computation exported from the **Full Computation Report** page:
@@ -87,7 +87,7 @@ Open http://localhost:8501 — the three tools appear in the left sidebar.
 ## Push to GitHub
 Create an empty **public** repo on GitHub (no README), then:
 ```bash
-git remote add origin https://github.com/<your-username>/income-tax-tools.git
+git remote add origin https://github.com/L0RD333/income-tax-tools.git
 git push -u origin main
 ```
 (This bundle already has a commit on `main`.)
