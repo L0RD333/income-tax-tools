@@ -1,9 +1,9 @@
 # Income Tax Tools — FY 2025-26 (AY 2026-27)
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://taxsetu.streamlit.app)
 ![CI](https://github.com/L0RD333/income-tax-tools/actions/workflows/ci.yml/badge.svg)
 
-> Replace `YOUR-APP` in the Streamlit badge above with your app subdomain once it's deployed.
+> Live app: **https://taxsetu.streamlit.app**
 
 ### Sample output
 A merged computation exported from the **Full Computation Report** page:
