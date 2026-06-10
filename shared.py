@@ -49,7 +49,16 @@ _BASE_CSS = """
         radial-gradient(700px circle at 50% 110%, var(--glow-1), transparent 60%);
     }
     .block-container{ position:relative; z-index:1; }
-    header[data-testid="stHeader"]{ background:transparent; }
+    /* top header bar (Share / GitHub / menu / status) -> themed blurred bar */
+    header[data-testid="stHeader"]{
+      background:color-mix(in srgb, var(--bg) 70%, transparent);
+      backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
+    [data-testid="stToolbar"] button, [data-testid="stToolbar"] a,
+    [data-testid="stToolbar"] span, [data-testid="stStatusWidget"]{ color:var(--text-2) !important; }
+    [data-testid="stToolbar"] svg{ fill:var(--text-2) !important; }
+    [data-testid="stToolbar"] button:hover{ color:var(--text) !important;
+      background:var(--surface) !important; border-radius:8px; }
+    [data-testid="stToolbar"] button:hover svg{ fill:var(--text) !important; }
 
     /* ---- headings ---- */
     h1,h2,h3,h4{ font-family:'Sora',sans-serif !important; letter-spacing:-.02em;
