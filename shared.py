@@ -16,22 +16,27 @@ def inr(x):
         s = ",".join(parts) + "," + last3
     return ("-" if neg else "") + "₹" + s
 
-def style(page_title, page_icon="🧮"):
-    st.set_page_config(page_title=page_title, page_icon=page_icon, layout="centered")
-    st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+# ---- theme palettes (mirror rahul357.netlify.app :root / [data-theme=light]) ----
+_DARK_VARS = """
+  --bg:#070912; --bg-2:#0b0f1c; --surface:rgba(255,255,255,.045);
+  --surface-2:rgba(255,255,255,.07); --border:rgba(255,255,255,.10);
+  --border-glow:rgba(120,140,255,.35);
+  --text:#eef1fb; --text-2:#aab2cf; --text-3:#6f7798;
+  --accent:#7c84ff; --accent-2:#4ad6c4; --accent-3:#b07cff;
+  --glow-1:rgba(124,132,255,.22); --glow-2:rgba(74,214,196,.14);
+  --shadow:0 20px 50px -20px rgba(0,0,0,.7);
+"""
+_LIGHT_VARS = """
+  --bg:#f5f7fc; --bg-2:#eef1f9; --surface:rgba(255,255,255,.75);
+  --surface-2:#ffffff; --border:rgba(20,30,70,.10);
+  --border-glow:rgba(90,100,220,.35);
+  --text:#141a2e; --text-2:#46506e; --text-3:#828aa6;
+  --accent:#4b53e0; --accent-2:#0fa593; --accent-3:#8a4bd6;
+  --glow-1:rgba(75,83,224,.14); --glow-2:rgba(15,165,147,.10);
+  --shadow:0 20px 50px -24px rgba(40,50,120,.25);
+"""
 
-    :root{
-      --bg:#070912; --bg-2:#0b0f1c; --surface:rgba(255,255,255,.045);
-      --surface-2:rgba(255,255,255,.07); --border:rgba(255,255,255,.10);
-      --border-glow:rgba(120,140,255,.35);
-      --text:#eef1fb; --text-2:#aab2cf; --text-3:#6f7798;
-      --accent:#7c84ff; --accent-2:#4ad6c4; --accent-3:#b07cff;
-      --glow-1:rgba(124,132,255,.22); --glow-2:rgba(74,214,196,.14);
-      --shadow:0 20px 50px -20px rgba(0,0,0,.7);
-    }
-
+_BASE_CSS = """
     /* ---- base ---- */
     html, body, [class*="css"], .stApp, .stMarkdown, p, span, label, div, input, button, textarea
       { font-family:'Inter',system-ui,sans-serif; }
@@ -114,7 +119,24 @@ def style(page_title, page_icon="🧮"):
 
     /* ---- chrome ---- */
     #MainMenu{ visibility:hidden; } footer{ visibility:hidden; }
-    </style>""", unsafe_allow_html=True)
+"""
+
+def style(page_title, page_icon="🧮"):
+    st.set_page_config(page_title=page_title, page_icon=page_icon, layout="centered")
+    # day / night toggle (persists across pages via session_state key)
+    st.session_state.setdefault("dark_mode", True)
+    dark = st.sidebar.toggle("🌙  Dark mode", key="dark_mode",
+                             help="Switch between night and day theme")
+    vars_css = _DARK_VARS if dark else _LIGHT_VARS
+    st.markdown(
+        "<style>\n"
+        "@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800"
+        "&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');\n"
+        ":root{" + vars_css + "}\n"
+        + _BASE_CSS +
+        "</style>",
+        unsafe_allow_html=True,
+    )
 
 def brandbar(subtitle):
     st.markdown(f"<div class='brandbar'>// <b>rahul</b> · income-tax-tools<br>"
