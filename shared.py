@@ -20,20 +20,105 @@ def style(page_title, page_icon="🧮"):
     st.set_page_config(page_title=page_title, page_icon=page_icon, layout="centered")
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Spectral:wght@400;500;600&display=swap');
-    html, body, [class*="css"] { font-family:'Spectral',Georgia,serif; }
-    h1,h2,h3 { font-family:'Fraunces',serif !important; color:#1c4a3a; }
-    .stApp { background:#f7f4ed; }
-    .brandbar { border-left:3px solid #9a6a1f; padding:6px 0 6px 12px; color:#6b675d;
-      font-size:13px; margin-bottom:14px; background:linear-gradient(90deg,#eef2ed,transparent); }
-    .brandbar b { color:#1c4a3a; font-family:'Fraunces',serif; }
-    .bestcard { border:2px solid #1c4a3a; border-radius:6px; padding:14px 18px; background:#fff; }
-    .muted { color:#6b675d; font-size:13px; }
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    :root{
+      --bg:#070912; --bg-2:#0b0f1c; --surface:rgba(255,255,255,.045);
+      --surface-2:rgba(255,255,255,.07); --border:rgba(255,255,255,.10);
+      --border-glow:rgba(120,140,255,.35);
+      --text:#eef1fb; --text-2:#aab2cf; --text-3:#6f7798;
+      --accent:#7c84ff; --accent-2:#4ad6c4; --accent-3:#b07cff;
+      --glow-1:rgba(124,132,255,.22); --glow-2:rgba(74,214,196,.14);
+      --shadow:0 20px 50px -20px rgba(0,0,0,.7);
+    }
+
+    /* ---- base ---- */
+    html, body, [class*="css"], .stApp, .stMarkdown, p, span, label, div, input, button, textarea
+      { font-family:'Inter',system-ui,sans-serif; }
+    .stApp{ background:var(--bg); color:var(--text); }
+    .stApp::before{
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(620px circle at 12% 8%, var(--glow-1), transparent 60%),
+        radial-gradient(560px circle at 88% 22%, var(--glow-2), transparent 55%),
+        radial-gradient(700px circle at 50% 110%, var(--glow-1), transparent 60%);
+    }
+    .block-container{ position:relative; z-index:1; }
+    header[data-testid="stHeader"]{ background:transparent; }
+
+    /* ---- headings ---- */
+    h1,h2,h3,h4{ font-family:'Sora',sans-serif !important; letter-spacing:-.02em;
+      color:var(--text) !important; font-weight:700; }
+    h1{ font-weight:800;
+      background:linear-gradient(110deg,var(--accent),var(--accent-2) 60%,var(--accent-3));
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .stMarkdown p, .stMarkdown li{ color:var(--text-2); }
+    a, a:visited{ color:var(--accent) !important; }
+
+    /* ---- brand tag ---- */
+    .brandbar{ font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--text-2);
+      background:var(--surface); border:1px solid var(--border); border-radius:12px;
+      padding:12px 16px; margin-bottom:18px; backdrop-filter:blur(14px); line-height:1.7; }
+    .brandbar b{ color:var(--accent); letter-spacing:.04em; }
+    .bestcard{ border:1px solid var(--border-glow); border-radius:18px; padding:18px 22px;
+      background:var(--surface); backdrop-filter:blur(14px); box-shadow:var(--shadow); color:var(--text); }
+    .muted{ color:var(--text-3); font-size:13px; }
+
+    /* ---- metrics -> glass cards ---- */
+    [data-testid="stMetric"]{ background:var(--surface); border:1px solid var(--border);
+      border-radius:18px; padding:18px 20px; backdrop-filter:blur(14px); transition:.3s; }
+    [data-testid="stMetric"]:hover{ border-color:var(--border-glow); transform:translateY(-3px);
+      box-shadow:var(--shadow); }
+    [data-testid="stMetricLabel"]{ color:var(--text-3) !important; }
+    [data-testid="stMetricValue"]{ font-family:'Sora',sans-serif !important; color:var(--text) !important; }
+
+    /* ---- buttons (gradient) ---- */
+    .stButton>button, .stDownloadButton>button, .stFormSubmitButton>button{
+      font-family:'Inter',sans-serif; font-weight:600; border-radius:12px; padding:10px 22px;
+      border:1px solid transparent; color:#fff !important;
+      background:linear-gradient(120deg,var(--accent),var(--accent-3));
+      box-shadow:0 10px 28px -12px var(--accent); transition:.25s; }
+    .stButton>button:hover, .stDownloadButton>button:hover, .stFormSubmitButton>button:hover{
+      transform:translateY(-3px); box-shadow:0 16px 34px -10px var(--accent);
+      border:1px solid transparent; }
+
+    /* ---- inputs ---- */
+    [data-baseweb="input"], [data-baseweb="select"]>div, [data-baseweb="base-input"],
+    .stTextInput input, .stNumberInput input, .stDateInput input, textarea{
+      background:var(--surface) !important; border:1px solid var(--border) !important;
+      color:var(--text) !important; border-radius:10px !important; }
+    .stTextInput input:focus, .stNumberInput input:focus{ border-color:var(--border-glow) !important; }
+    label, .stRadio label, .stCheckbox label, [data-testid="stWidgetLabel"]{ color:var(--text-2) !important; }
+
+    /* ---- markdown tables ---- */
+    .stMarkdown table{ width:100%; border-collapse:collapse; background:var(--surface);
+      border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+    .stMarkdown th{ background:rgba(255,255,255,.04); color:var(--accent-2);
+      font-family:'JetBrains Mono',monospace; font-weight:600; text-align:left;
+      padding:10px 14px; border-bottom:1px solid var(--border); }
+    .stMarkdown td{ color:var(--text); padding:9px 14px; border-bottom:1px solid var(--border); }
+    .stMarkdown tr:last-child td{ border-bottom:none; }
+
+    /* ---- containers ---- */
+    [data-testid="stExpander"]{ background:var(--surface); border:1px solid var(--border);
+      border-radius:14px; backdrop-filter:blur(14px); }
+    [data-testid="stFileUploader"]{ background:var(--surface); border:1px dashed var(--border);
+      border-radius:14px; padding:8px; }
+    [data-testid="stFileUploaderDropzone"]{ background:transparent; }
+    [data-testid="stSidebar"]{ background:var(--bg-2); border-right:1px solid var(--border); }
+    [data-testid="stSidebar"] *{ color:var(--text-2); }
+    [data-testid="stDataFrame"]{ border:1px solid var(--border); border-radius:14px; }
+    .stTabs [data-baseweb="tab"]{ color:var(--text-2); }
+    .stTabs [aria-selected="true"]{ color:var(--accent) !important; }
+    .stAlert{ border-radius:12px; }
+
+    /* ---- chrome ---- */
+    #MainMenu{ visibility:hidden; } footer{ visibility:hidden; }
     </style>""", unsafe_allow_html=True)
 
 def brandbar(subtitle):
-    st.markdown(f"<div class='brandbar'><b>Rahul</b> — Income Tax Tools<br>{subtitle}</div>",
-                unsafe_allow_html=True)
+    st.markdown(f"<div class='brandbar'>// <b>rahul</b> · income-tax-tools<br>"
+                f"<span class='muted'>{subtitle}</span></div>", unsafe_allow_html=True)
 
 # ----------------------------- income-tax engine -----------------------------
 def slab_tax_new(ti):
