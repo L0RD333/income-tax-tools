@@ -132,10 +132,16 @@ _BASE_CSS = """
 
 def style(page_title, page_icon="🧮"):
     st.set_page_config(page_title=page_title, page_icon=page_icon, layout="centered")
-    # day / night toggle (persists across pages via session_state key)
+    # day / night toggle — persists across every page.
+    # The source of truth is the plain session value `dark_mode` (which survives
+    # page navigation); the toggle widget uses its own key and is seeded from it
+    # each run, because Streamlit can drop a widget's *own* keyed state when you
+    # switch pages. Without this split the theme reset to the default on each page.
     st.session_state.setdefault("dark_mode", True)
-    dark = st.sidebar.toggle("🌙  Dark mode", key="dark_mode",
+    dark = st.sidebar.toggle("🌙  Dark mode", value=st.session_state.dark_mode,
+                             key="dark_toggle",
                              help="Switch between night and day theme")
+    st.session_state.dark_mode = dark
     vars_css = _DARK_VARS if dark else _LIGHT_VARS
     st.markdown(
         "<style>\n"
